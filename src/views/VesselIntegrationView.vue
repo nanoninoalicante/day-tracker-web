@@ -4,7 +4,7 @@ const postMessage = () => {
   const payload = {
     testing: "hello world"
   }
-  window.opener.postMessage(payload);
+  window.opener.postMessage(payload, "http://127.0.0.1:5173");
 }
 </script>
 
