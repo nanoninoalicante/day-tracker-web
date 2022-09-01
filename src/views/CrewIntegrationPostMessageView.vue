@@ -7,10 +7,10 @@ const originUrl = computed(() => {
   const originUrl = new URL(origin || "");
   return originUrl.origin
 })
-const status:any = ref("pending")
+const status: any = ref("pending")
 const postMessage = () => {
   try {
-    if(!status.value) {
+    if (!status.value) {
       errors.value.push("missing status")
       return;
     };
@@ -40,7 +40,7 @@ const postMessage = () => {
     </div>
     <button @click="postMessage" class="p-4 bg-gray-100 hover:bg-gray-300 rounded-xl">Post Message back to
       origin</button>
-      <p class="text-md">Origin: {{originUrl}}</p>
+    <p class="text-md">Origin: {{ originUrl }}</p>
     <div class="text-red-700" v-if="errors && errors.length > 0">
       <h1 class="text-lg font-medium">Errors:</h1>
       <p v-for="error in errors" class="text-md">{{ error }}</p>
