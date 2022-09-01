@@ -3,7 +3,7 @@ import { onMounted, reactive, computed } from 'vue';
 import { useStorage, useLastChanged } from '@vueuse/core'
 const inputData = useStorage('cp-button-data', {
   data: {
-    "cpPopupUrl": "https://crewpass-testing-web.netlify.app/crew-messages",
+    "cpPopupUrl": "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding",
     "cpPartner": "yotspot",
     "cpUserEmail": "cjameshill@gmail.com",
     "cpUserId": "yotspotuser123",
