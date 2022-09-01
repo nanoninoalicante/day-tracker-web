@@ -11,10 +11,11 @@ const postMessage = () => {
   try {
 
     const payload = {
-      hello: "world",
-      status: "approved",
-      ts: new Date().toISOString(),
-      origin: originUrl.value
+      cpUniqueId: "513423262",
+      status: "pending",
+      email: "christopher+crewemail@nanonino.com",
+      firstName: "Chris",
+      lastName: "Hill"
     }
 
     window.opener.postMessage(payload, originUrl.value);
