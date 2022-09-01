@@ -1,22 +1,61 @@
 <script setup lang="ts">
-function cpLoaded() {
-  console.log("cp loaded")
-}
+import { onMounted, reactive, computed } from 'vue';
+import { useStorage } from '@vueuse/core'
+const inputData = useStorage('cp-button-data', {
+  data: {
+    "cpPopupUrl": "https://crewpass-testing-web.netlify.app/crew-messages",
+    "cpPartner": "yotspot",
+    "cpUserEmail": "cjameshill@gmail.com",
+    "cpUserId": "yotspotuser123",
+    "cpFirstName": "Chris",
+    "cpLastName": "Hill",
+    "cpNationality": "UK",
+    "cpDob": "1987-03-29",
+    "cpGender": "male",
+    "cpCountryCode": "+44",
+    "cpPhone": "7411103268",
+    "cpStreetAddress": "Calle Poeta Campos Vasallo 30",
+    "cpCity": "Alicante",
+    "cpState": "Alicante",
+    "cpCountry": "Spain"
+  }
+});
+const inputs = computed(() => {
+  let arr = [];
+  for (const input in inputData.value.data) {
+    arr.push({ key: input, value: inputData.value.data[input] })
+  }
+  return arr;
+})
+onMounted(() => {
+
+})
 </script>
 
 <template>
-  <main class="w-4/5 flex flex-col justify-center items-center space-y-4">
+  <main class="w-full md:w-4/5 flex flex-col justify-center items-center space-y-4">
 
-    <div id="cp-holder-1">
-      <div id="cp-holder-2">
-        <div id="cp-agency-crew-profile-button" data-cp-partner="yotspot" data-cp-user-email="cjameshill@gmail.com"
-          data-cp-user-id="yotspotuser123" data-cp-first-name="Chris" data-cp-last-name="Hill" data-cp-nationality="UK"
-          data-cp-dob="1987-03-29" data-cp-gender="male" data-cp-country-code="+44" data-cp-phone="7411103268"
-          data-cp-street-address="Calle Poeta Campos Vasallo 30" data-cp-city="Alicante" data-cp-state="Alicante"
-          data-cp-country="Spain">CP Button Loading</div>
+    <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
+    <div id="cp-holder-1 w-full">
+
+      <div id="cp-agency-crew-profile-button" :data-cp-partner="inputData.data.cpPartner"
+        :data-cp-user-email="inputData.data.cpUserEmail" :data-cp-user-id="inputData.data.cpUserId"
+        :data-cp-first-name="inputData.data.cpFirstName" :data-cp-last-name="inputData.data.cpLastName"
+        :data-cp-nationality="inputData.data.cpNationality" :data-cp-dob="inputData.data.cpDob"
+        :data-cp-gender="inputData.data.cpGender" :data-cp-country-code="inputData.data.cpCountryCode"
+        :data-cp-phone="inputData.data.cpPhone" :data-cp-street-address="inputData.data.cpStreetAddress"
+        :data-cp-city="inputData.data.cpCity" :data-cp-state="inputData.data.cpState"
+        :data-cp-country="inputData.data.cpCountry" :data-cp-popup-url="inputData.data.cpPopupUrl">CP Button Loading
+      </div>
+      <div class="flex flex-col w-full mt-8">
+        <div v-for="item in inputs" class="my-1">
+          <label class="text-sm italic ml-4 font-medium text-gray-400" for="inputData.data[item.key]">{{ item.key
+          }}</label>
+          <input v-model="inputData.data[item.key]" name="inputData.data[item.key]" type="text"
+            class="p-2 border-2 border-gray-200 w-full rounded-xl" />
+        </div>
       </div>
     </div>
-    <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
 
   </main>
 </template>

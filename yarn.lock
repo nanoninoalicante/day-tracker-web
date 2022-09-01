@@ -33,6 +33,11 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-16.11.56.tgz"
   "version" "16.11.56"
 
+"@types/web-bluetooth@^0.0.15":
+  "integrity" "sha512-w7hEHXnPMEZ+4nGKl/KDRVpxkwYxYExuHOYXyzIzCDzEZ9ZCGMAewulr9IqJu2LR4N37fcnb1XVeuZ09qgOxhA=="
+  "resolved" "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.15.tgz"
+  "version" "0.0.15"
+
 "@vitejs/plugin-vue@^3.0.1":
   "integrity" "sha512-U4zNBlz9mg+TA+i+5QPc3N5lQvdUXENZLO2h0Wdzp56gI1MWhqJOv+6R+d4kOzoaSSq6TnGPBdZAXKOe4lXy6g=="
   "resolved" "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-3.0.3.tgz"
@@ -187,6 +192,28 @@
   "integrity" "sha512-kQVsh8yyWPvHpb8gIc9l/HIDiiVUy1amynLNpCy8p+FoCiZXCo6fQos5/097MmnNZc9AtseDsCrfkhqCrJ8Olg=="
   "resolved" "https://registry.npmjs.org/@vue/tsconfig/-/tsconfig-0.1.3.tgz"
   "version" "0.1.3"
+
+"@vueuse/core@^9.1.1":
+  "integrity" "sha512-QfuaNWRDMQcCUwXylCyYhPC3ScS9Tiiz4J0chdwr3vOemBwRToSywq8MP+ZegKYFnbETzRY8G/5zC+ca30wrRQ=="
+  "resolved" "https://registry.npmjs.org/@vueuse/core/-/core-9.1.1.tgz"
+  "version" "9.1.1"
+  dependencies:
+    "@types/web-bluetooth" "^0.0.15"
+    "@vueuse/metadata" "9.1.1"
+    "@vueuse/shared" "9.1.1"
+    "vue-demi" "*"
+
+"@vueuse/metadata@9.1.1":
+  "integrity" "sha512-XZ2KtSW+85LLHB/IdGILPAtbIVHasPsAW7aqz3BRMzJdAQWRiM/FGa1OKBwLbXtUw/AmjKYFlZJo7eOFIBXRog=="
+  "resolved" "https://registry.npmjs.org/@vueuse/metadata/-/metadata-9.1.1.tgz"
+  "version" "9.1.1"
+
+"@vueuse/shared@9.1.1":
+  "integrity" "sha512-c+IfcOYmHiHqoEa3ED1Tbpue5GHmoUmTp8PtO4YbczthtY155Rt6DmWhjxMLXBF1Bcidagxljmp/7xtAzEHXLw=="
+  "resolved" "https://registry.npmjs.org/@vueuse/shared/-/shared-9.1.1.tgz"
+  "version" "9.1.1"
+  dependencies:
+    "vue-demi" "*"
 
 "acorn-node@^1.8.2":
   "integrity" "sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A=="
