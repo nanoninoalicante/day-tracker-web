@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/crew',
       name: 'crewintegration',
       component: () => import("../views/CrewIntegrationView.vue")
+    },
+    {
+      path: '/crew-messages',
+      name: 'crewintegration-messages',
+      component: () => import("../views/CrewIntegrationPostMessageView.vue")
     }
   ]
 })
