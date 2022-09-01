@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed } from 'vue';
-
-const inputData = reactive({
+import { useStorage } from '@vueuse/core'
+const inputData = useStorage('cp-button-data', {
   data: {
+    "cpPopupUrl": "https://crewpass-testing-web.netlify.app/crew-messages",
     "cpPartner": "yotspot",
     "cpUserEmail": "cjameshill@gmail.com",
     "cpUserId": "yotspotuser123",
@@ -18,11 +19,11 @@ const inputData = reactive({
     "cpState": "Alicante",
     "cpCountry": "Spain"
   }
-} as any);
+});
 const inputs = computed(() => {
   let arr = [];
-  for (const input in inputData.data) {
-    arr.push({ key: input, value: inputData.data[input] })
+  for (const input in inputData.value.data) {
+    arr.push({ key: input, value: inputData.value.data[input] })
   }
   return arr;
 })
@@ -44,7 +45,8 @@ onMounted(() => {
         :data-cp-gender="inputData.data.cpGender" :data-cp-country-code="inputData.data.cpCountryCode"
         :data-cp-phone="inputData.data.cpPhone" :data-cp-street-address="inputData.data.cpStreetAddress"
         :data-cp-city="inputData.data.cpCity" :data-cp-state="inputData.data.cpState"
-        :data-cp-country="inputData.data.cpCountry">CP Button Loading</div>
+        :data-cp-country="inputData.data.cpCountry" :data-cp-popup-url="inputData.data.cpPopupUrl">CP Button Loading
+      </div>
       <div class="flex flex-col w-full mt-8">
         <div v-for="item in inputs" class="my-1">
           <label class="text-sm italic ml-4 font-medium text-gray-400" for="inputData.data[item.key]">{{ item.key
