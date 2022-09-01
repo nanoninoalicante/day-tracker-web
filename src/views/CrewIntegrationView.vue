@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed } from 'vue';
-import { useStorage } from '@vueuse/core'
+import { useStorage, useLastChanged } from '@vueuse/core'
 const inputData = useStorage('cp-button-data', {
   data: {
     "cpPopupUrl": "https://crewpass-testing-web.netlify.app/crew-messages",
@@ -20,6 +20,7 @@ const inputData = useStorage('cp-button-data', {
     "cpCountry": "Spain"
   }
 });
+const lastChanged = useLastChanged(inputData.value)
 const inputs = computed(() => {
   let arr = [];
   for (const input in inputData.value.data) {
@@ -27,6 +28,9 @@ const inputs = computed(() => {
   }
   return arr;
 })
+const update = () => {
+  window.location.reload();
+}
 onMounted(() => {
 
 })
@@ -37,7 +41,8 @@ onMounted(() => {
 
     <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
     <div id="cp-holder-1 w-full">
-
+      <button v-if="lastChanged" @click="update"
+        class="my-4 p-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed - Update</button>
       <div id="cp-agency-crew-profile-button" :data-cp-partner="inputData.data.cpPartner"
         :data-cp-user-email="inputData.data.cpUserEmail" :data-cp-user-id="inputData.data.cpUserId"
         :data-cp-first-name="inputData.data.cpFirstName" :data-cp-last-name="inputData.data.cpLastName"
