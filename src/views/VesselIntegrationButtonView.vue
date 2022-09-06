@@ -50,9 +50,9 @@ onMounted(() => {
 		<h1 id="title" class="text-lg font-medium">Vessel Integration</h1>
 		<div id="cp-holder-1" class="flex justify-center flex-col items-center">
 			<button v-if="lastChanged" @click="update"
-				class="my-4 p-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed -
+				class="my-0 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed -
 				Update</button>
-			<div id="cp-agency-crew-profile-button" :data-cp-partner="inputData.data.cpPartner"
+			<div v-else id="cp-agency-crew-profile-button" :data-cp-partner="inputData.data.cpPartner"
 				:data-cp-user-email="inputData.data.cpUserEmail" :data-cp-user-id="inputData.data.cpUserId"
 				:data-cp-first-name="inputData.data.cpFirstName" :data-cp-last-name="inputData.data.cpLastName"
 				:data-cp-nationality="inputData.data.cpNationality" :data-cp-dob="inputData.data.cpDob"
