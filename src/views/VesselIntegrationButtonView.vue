@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
-const inputData = useStorage('cp-vessel-button-data', {
+import CrewPassButton from '../components/CrewPassButton.vue'
+const inputData: any = useStorage('cp-vessel-button-data', {
 	data: {
 		"cpPopupUrl": "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding",
 		"cpPartner": "yotspot",
@@ -52,16 +53,7 @@ onMounted(() => {
 			<button v-if="lastChanged" @click="update"
 				class="my-0 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed -
 				Update</button>
-			<div v-else id="cp-agency-crew-profile-button" :data-cp-partner="inputData.data.cpPartner"
-				:data-cp-user-email="inputData.data.cpUserEmail" :data-cp-user-id="inputData.data.cpUserId"
-				:data-cp-first-name="inputData.data.cpFirstName" :data-cp-last-name="inputData.data.cpLastName"
-				:data-cp-nationality="inputData.data.cpNationality" :data-cp-dob="inputData.data.cpDob"
-				:data-cp-gender="inputData.data.cpGender" :data-cp-country-code="inputData.data.cpCountryCode"
-				:data-cp-phone="inputData.data.cpPhone" :data-cp-street-address="inputData.data.cpStreetAddress"
-				:data-cp-city="inputData.data.cpCity" :data-cp-state="inputData.data.cpState"
-				:data-cp-country="inputData.data.cpCountry" :data-cp-popup-url="inputData.data.cpPopupUrl">CP Button
-				Loading
-			</div>
+			<CrewPassButton v-else :input-data="inputData"></CrewPassButton>
 			<div class="flex mt-4">
 				<p>Url: <span class="text-sm text-gray-500">{{fullPoupupUrl}}</span></p>
 			</div>
