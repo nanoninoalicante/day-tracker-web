@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import VesselIntegrationView from '../views/VesselIntegrationView.vue'
+import VesselIntegrationButtonView from '../views/VesselIntegrationButtonView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'vesselintegration',
-      component: VesselIntegrationView
+      component: VesselIntegrationButtonView
     },
     {
       path: '/crew',
