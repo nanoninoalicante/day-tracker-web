@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed } from 'vue';
-import { useStorage, useLastChanged } from '@vueuse/core'
-const inputData = useStorage('cp-button-data', {
+import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
+const inputData = useStorage('cp-vessel-button-data', {
   data: {
     "cpPopupUrl": "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding",
     "cpPartner": "yotspot",
@@ -35,6 +35,10 @@ const inputs = computed(() => {
     arr.push({ key: input, value: inputData.value.data[input] })
   }
   return arr;
+})
+useEventListener(window, 'message', (message:any ) => {
+    console.log('message origin: ', message.origin)
+    console.log('message: ', message.data)
 })
 const update = () => {
   window.location.reload();

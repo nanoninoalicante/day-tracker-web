@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed } from 'vue';
 import { useStorage, useLastChanged } from '@vueuse/core'
-const inputData = useStorage('cp-button-data', {
+const inputData = useStorage('cp-crew-button-data', {
   data: {
     "cpPopupUrl": "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding",
     "cpPartner": "yotspot",
