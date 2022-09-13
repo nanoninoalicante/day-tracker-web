@@ -11,7 +11,7 @@ const inputData: any = useStorage('cp-vessel-button-data', {
 		"cpPopupUrl": popupUrl,
 		"cpPartner": "yotspot",
 		"cpUserEmail": demoEmail,
-		"cpUserId": "yotspotuser123",s
+		"cpUserId": "yotspotuser123",
 		"cpFirstName": "Chris",
 		"cpLastName": "Hill",
 		"cpNationality": "UK",
