@@ -2,11 +2,14 @@
 import { onMounted, ref, computed, watch } from 'vue';
 import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
 import CrewPassButton from '../components/CrewPassButton.vue'
+import { random } from "lodash";
+const demoEmail = `christopher+crew${random(100, 999)}@nanonino.com`;
+const popupUrl = import.meta.env.CP_POPUP_URL_CREW || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding";
 const inputData: any = useStorage('cp-crew-button-data', {
   data: {
-    "cpPopupUrl": "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding",
+    "cpPopupUrl": popupUrl,
     "cpPartner": "yotspot",
-    "cpUserEmail": "cjameshill@gmail.com",
+    "cpUserEmail": demoEmail,
     "cpUserId": "yotspotuser123",
     "cpFirstName": "Chris",
     "cpLastName": "Hill",
