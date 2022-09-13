@@ -4,14 +4,14 @@ import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
 import CrewPassButton from '../components/CrewPassButton.vue'
 import { random } from "lodash";
 const demoEmail = `christopher+vessel${random(100, 999)}@nanonino.com`;
-const popupUrl = import.meta.env.CP_POPUP_URL_VESSEL || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding";
+const popupUrl = import.meta.env.VITE_CP_POPUP_URL_VESSEL || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding";
 
 const inputData: any = useStorage('cp-vessel-button-data', {
 	data: {
 		"cpPopupUrl": popupUrl,
 		"cpPartner": "yotspot",
 		"cpUserEmail": demoEmail,
-		"cpUserId": "yotspotuser123",
+		"cpUserId": "yotspotuser123",s
 		"cpFirstName": "Chris",
 		"cpLastName": "Hill",
 		"cpNationality": "UK",
@@ -59,7 +59,7 @@ onMounted(() => {
 				Update</button>
 			<CrewPassButton v-else :input-data="inputData"></CrewPassButton>
 			<div class="flex mt-4">
-				<p>Url: <span class="text-sm text-gray-500">{{fullPoupupUrl}}</span></p>
+				<p>Url: <span class="text-sm text-gray-500 break-all">{{fullPoupupUrl}}</span></p>
 			</div>
 			<div class="flex flex-col w-full md:w-[400px] mt-8">
 				<div v-for="item in inputs" class="my-1">
