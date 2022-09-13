@@ -3,13 +3,13 @@ import { onMounted, ref, computed, watch } from 'vue';
 import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
 import CrewPassButton from '../components/CrewPassButton.vue'
 import { random } from "lodash";
-const demoEmail = `christopher+crew${random(100, 999)}@nanonino.com`;
-const popupUrl = import.meta.env.VITE_CP_POPUP_URL_CREW || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding";
+const demoEmail = () => `christopher+crew${random(100, 999)}@nanonino.com`;
+const popupUrl = ref(import.meta.env.VITE_CP_POPUP_URL_CREW || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding");
 const inputData: any = useStorage('cp-crew-button-data', {
   data: {
-    "cpPopupUrl": popupUrl,
+    "cpPopupUrl": popupUrl.value,
     "cpPartner": "yotspot",
-    "cpUserEmail": demoEmail,
+    "cpUserEmail": demoEmail(),
     "cpUserId": "yotspotuser123",
     "cpFirstName": "Chris",
     "cpLastName": "Hill",
@@ -44,6 +44,10 @@ useEventListener(window, 'message', (message: any) => {
   if (message.data?.url) {
     fullPoupupUrl.value = message.data?.url;
   }
+})
+
+onMounted(() => {
+    	popupUrl.value = import.meta?.env?.VITE_CP_POPUP_URL_CREW || "";
 })
 </script>
 

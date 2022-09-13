@@ -4,10 +4,10 @@ import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
 import CrewPassButton from '../components/CrewPassButton.vue'
 import { random } from "lodash";
 const demoEmail = () => `christopher+vessel${random(100, 999)}@nanonino.com`;
-const popupUrl = import.meta.env.VITE_CP_POPUP_URL_VESSEL || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding";
+const popupUrl = ref(import.meta.env.VITE_CP_POPUP_URL_VESSEL || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/vessellanding");
 const inputData: any = useStorage('cp-vessel-button-data', {
 	data: {
-		"cpPopupUrl": popupUrl,
+		"cpPopupUrl": popupUrl.value,
 		"cpPartner": "yotspot",
 		"cpUserEmail": demoEmail(),
 		"cpUserId": "yotspotuser123",
@@ -45,7 +45,7 @@ const update = () => {
 }
 onMounted(() => {
 	console.log("env var: ", JSON.stringify(import.meta.env))
-
+	popupUrl.value = import.meta?.env?.VITE_CP_POPUP_URL_VESSEL || "";
 })
 </script>
 
