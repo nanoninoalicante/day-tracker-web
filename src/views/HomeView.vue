@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { useTasksStore } from "../stores/tasks";
 const tasksStore = useTasksStore();
 const newTask = ref("")
@@ -8,6 +8,9 @@ const createNewTask = () => {
     tasksStore.add({ name: newTask.value })
     newTask.value = "";
 }
+onMounted(() => {
+    tasksStore.getAll();
+})
 </script>
 <template>
     <div class="w-full md:w-2/3 flex justify-center flex-col items-center space-y-4">
