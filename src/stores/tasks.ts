@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia'
 import moment from "moment";
+import { orderBy } from 'lodash';
 export const useTasksStore = defineStore({
   id: 'tasks',
   state: () => ({
     tasks: []
   }),
   getters: {
-    getTasks: (state) => state.tasks.map((t) => {
-      return {
-        ...t,
-        createdAtTime: moment(t.createdAt).toISOString()
-      }
-    })
+    getTasks: (state) => {
+      const tasks = state.tasks.map((t) => {
+        return {
+          ...t,
+          createdAtTime: moment(t.createdAt).format("dd HH:mm")
+        }
+      });
+      return orderBy(tasks, (t) => t.createdAt, "desc")
+    }
   },
   actions: {
     async getAll() {
