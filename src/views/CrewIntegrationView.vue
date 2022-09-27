@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue';
-import { useStorage, useLastChanged, useEventListener } from '@vueuse/core'
-import CrewPassButton from '../components/CrewPassButton.vue'
+import { onMounted, ref, computed, watch } from "vue";
+import { useStorage, useLastChanged, useEventListener } from "@vueuse/core";
+import CrewPassButton from "../components/CrewPassButton.vue";
 import { random } from "lodash";
 const demoEmail = () => `christopher+crew${random(100, 999)}@nanonino.com`;
 const popupUrl = ref(import.meta.env.VITE_CP_POPUP_URL_CREW || "https://master-dashboard-v1-ojo6h3z4mq-ez.a.run.app/crewlanding");
@@ -24,55 +24,68 @@ const inputData: any = useStorage('cp-crew-button-data', {
     "cpCountry": "Spain"
   }
 });
-const lastChanged = useLastChanged(inputData.value)
+const lastChanged = useLastChanged(inputData.value);
 
 const fullPoupupUrl = ref("");
 const inputs = computed(() => {
   let arr = [];
   for (const input in inputData.value.data) {
-    arr.push({ key: input, value: inputData.value.data[input] })
+    arr.push({ key: input, value: inputData.value.data[input] });
   }
   return arr;
-})
+});
 const update = () => {
   window.location.reload();
-}
+};
 
-useEventListener(window, 'message', (message: any) => {
-  console.log('message origin: ', message.origin)
-  console.log('message: ', message.data)
+const restoreSettings = () => {
+  inputData.value = null;
+  window.location.reload();
+};
+
+useEventListener(window, "message", (message: any) => {
+  console.log("message origin: ", message.origin);
+  console.log("message: ", message.data);
   if (message.data?.url) {
     fullPoupupUrl.value = message.data?.url;
   }
-})
+});
 
 onMounted(() => {
-    	popupUrl.value = import.meta?.env?.VITE_CP_POPUP_URL_CREW || "";
+  popupUrl.value = import.meta?.env?.VITE_CP_POPUP_URL_CREW || "";
 })
 </script>
 
 <template>
-  <main class="w-full md:w-4/5 flex flex-col justify-center items-center space-y-4">
-
+  <main class="w-full md:w-4/5 flex flex-col justify-center items-center">
     <h1 id="title" class="text-lg font-medium">Crew Integration</h1>
+    <button @click="restoreSettings"
+      class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium">
+      Restore Default Settings
+    </button>
     <div id="cp-holder-1" class="flex justify-center flex-col items-center">
+
       <button v-if="lastChanged" @click="update"
-        class="my-0 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed -
-        Update</button>
+        class="my-0 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">
+        Changed - Update
+      </button>
       <CrewPassButton v-else :input-data="inputData"></CrewPassButton>
       <div class="flex mt-4">
-        <p>Url: <span class="text-sm text-gray-500 break-all">{{fullPoupupUrl}}</span></p>
+        <p>
+          Url:
+          <span class="text-sm text-gray-500 break-all">{{
+          fullPoupupUrl
+          }}</span>
+        </p>
       </div>
       <div class="flex flex-col w-full md:w-[400px] mt-8">
         <div v-for="item in inputs" class="my-1">
-          <label class="text-sm italic ml-4 font-medium text-gray-400" for="inputData.data[item.key]">{{
-          item.key
+          <label class="text-sm italic ml-4 font-medium text-gray-400" for="inputData.data[item.key]">{{ item.key
           }}</label>
           <input v-model="inputData.data[item.key]" name="inputData.data[item.key]" type="text"
             class="p-2 border-2 border-gray-200 w-full rounded-xl" />
         </div>
       </div>
     </div>
-
   </main>
 </template>
