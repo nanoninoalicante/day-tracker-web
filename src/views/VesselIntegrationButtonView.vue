@@ -43,6 +43,11 @@ useEventListener(window, 'message', (message: any) => {
 const update = () => {
 	window.location.reload();
 }
+const restoreSettings = () => {
+	inputData.value = null;
+	window.location.reload();
+};
+
 onMounted(() => {
 	console.log("env var: ", JSON.stringify(import.meta.env))
 	popupUrl.value = import.meta?.env?.VITE_CP_POPUP_URL_VESSEL || "";
@@ -50,9 +55,13 @@ onMounted(() => {
 </script>
 
 <template>
-	<main class="w-full md:w-4/5 flex flex-col justify-center items-center space-y-4">
+	<main class="w-full md:w-4/5 flex flex-col justify-center items-center">
 
 		<h1 id="title" class="text-lg font-medium">Vessel Integration</h1>
+		<button @click="restoreSettings"
+			class="mt-4 mb-10 py-2 px-4 rounded-xl bg-orange-400 hover:bg-gray-400 text-md font-medium">
+			Restore Default Settings
+		</button>
 		<div id="cp-holder-1" class="flex justify-center flex-col items-center">
 			<button v-if="lastChanged" @click="update"
 				class="my-0 py-2 px-4 rounded-xl bg-yellow-400 hover:bg-gray-400 text-xl font-medium">Changed -
