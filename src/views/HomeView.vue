@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue"
 import { useTasksStore } from "../stores/tasks";
+import Task from "../components/Task.vue";
 const tasksStore = useTasksStore();
 const newTask = ref("")
 const allTasks = computed(() => tasksStore.getTasks);
@@ -22,10 +23,7 @@ onMounted(() => {
         </div>
         <div v-if="tasksStore.tasks.length > 0" class="w-full">
             <ul>
-                <li v-for="task in allTasks" :key="task.createdAt" class="p-4 rounded-2xl bg-white my-2 flex flex-row justify-between">
-                    <span>{{ task.name }}</span>
-                    <span>{{task.createdAtTime}}</span>
-                </li>
+                <Task v-for="task in allTasks" :key="task.id" :task="task"></Task>
             </ul>
         </div>
     </div>

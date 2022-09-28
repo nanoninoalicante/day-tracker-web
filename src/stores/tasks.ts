@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import moment from "moment";
 import { orderBy } from 'lodash';
+import * as uuid from "uuid";
 export const useTasksStore = defineStore({
   id: 'tasks',
   state: () => ({
@@ -26,9 +27,18 @@ export const useTasksStore = defineStore({
       })
     },
     async add(newTaskData: any) {
-      const newTask = { name: newTaskData.name, createdAt: new Date().valueOf() }
+      const id = uuid.v4();
+      const newTask = { id, name: newTaskData.name, createdAt: new Date().valueOf() }
       const response = await fetch("https://day-tracker-api-dev.nanonino.workers.dev/", { method: "POST", body: JSON.stringify(newTask) });
       this.tasks.push(newTask)
+    },
+    async deleteTask(id: string, score: any) {
+      const response = await fetch(`https://day-tracker-api-dev.nanonino.workers.dev/${score}`, { method: "POST" });
+      console.log("score: ", score);
+      console.log("response: ", await response.json())
+      const index = this.tasks.findIndex((task: any) => task.id === id);
+      console.log("index to be removed: ", index)
+      this.tasks.splice(index, 1);
     }
   }
 })
