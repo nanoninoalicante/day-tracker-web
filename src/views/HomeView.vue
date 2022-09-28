@@ -34,7 +34,7 @@ onMounted(() => {
             </label>
 
             <input @keyup.enter="createNewTask" type="text" class="w-full border-2 border-gray-300 p-4 rounded-2xl"
-                v-model="newTask" :class="{'border-lime-500' : isPersonal, 'border-blue-500' : !isPersonal}"
+                v-model="newTask" :class="{'border-lime-500' : isPersonal}"
                 :placeholder="isPersonal ? 'WDIDT - Personal' : 'WDIDT - Work'" />
         </div>
         <div>
