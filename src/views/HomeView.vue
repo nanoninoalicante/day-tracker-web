@@ -2,6 +2,9 @@
 import { ref, onMounted, computed } from "vue"
 import { useTasksStore } from "../stores/tasks";
 import Task from "../components/Task.vue";
+import moment from "moment";
+import { useClipboard } from '@vueuse/core'
+
 const tasksStore = useTasksStore();
 const newTask = ref("")
 const isPersonal = ref(false);
@@ -17,13 +20,22 @@ const createNewTask = () => {
     tasksStore.add({ name: newTask.value, isPersonal: isPersonal.value })
     newTask.value = "";
 }
+const selectedDaySummary = ref("");
+const { text, copy, copied, isSupported } = useClipboard({ source: selectedDaySummary })
+const exportDay = (taskGroup) => {
+    selectedDaySummary.value = `${taskGroup.dayFormatted}\n`;
+    for (let task of taskGroup.tasks) {
+        selectedDaySummary.value += `${task.name} - ${task.createdAtTime} \n`;
+    }
+    copy();
+}
 onMounted(() => {
     tasksStore.getAll();
 })
 </script>
 <template>
     <div class="w-full md:w-2/3 flex justify-center flex-col items-center space-y-4">
-        <h1>Tasks</h1>
+        <h1 class="font-medium text-lg">Add Task</h1>
         <div class="w-full md:w-2/3 flex flow-row justify-between items-center space-x-2">
 
             <label for="default-toggle" class="inline-flex relative items-center cursor-pointer">
@@ -47,10 +59,18 @@ onMounted(() => {
 
             </label>
         </div>
-        <div v-if="tasksStore.tasks.length > 0" class="w-full">
-            <TransitionGroup name="list" tag="ul">
-                <Task v-for="task in allTasks" :key="task.id" :task="task"></Task>
-            </TransitionGroup>
+        <div v-if="allTasks.length > 0" class="w-full">
+            <div v-for="taskGroup in allTasks" :key="taskGroup.day" class="w-full">
+                <div class="-mb-6 mt-8">
+                    <span class="text-xl font-bold text-gray-500">{{taskGroup.dayFormatted}}</span>
+                    <button @click="exportDay(taskGroup)"
+                        class="p-2 text-sm text-gray-400 underline hover:no-underline">{{copied ? 'copied!' :
+                        'export'}}</button>
+                </div>
+                <TransitionGroup name="list" tag="ul">
+                    <Task v-for="task in taskGroup.tasks" :key="task.id" :task="task"></Task>
+                </TransitionGroup>
+            </div>
         </div>
     </div>
 </template>

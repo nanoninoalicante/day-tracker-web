@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import moment from "moment";
-import { orderBy } from 'lodash';
+import { orderBy, groupBy } from 'lodash';
 import * as uuid from "uuid";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://day-tracker-api-dev.nanonino.workers.dev";
 interface State {
@@ -14,15 +14,28 @@ export const useTasksStore = defineStore({
   }),
   getters: {
     getTasks: (state) => {
-      const tasks = state.tasks.map((t) => {
+      let tasks: any = state.tasks.map((t) => {
         let newTaskData = {
           ...t,
-          createdAtTime: moment(t.createdAt).format("dd HH:mm")
+          createdAtTime: moment(t.createdAt).format("dd HH:mm"),
+          day: moment(t.createdAt).format("YYYY-DDD"),
+          dayFormatted: moment(t.createdAt).format("dddd Do MMM")
         }
         return newTaskData;
       });
-      return orderBy(tasks, (t) => t.createdAt, "desc")
-    }
+      tasks = orderBy(tasks, (t) => t.createdAt, "desc");
+      tasks = groupBy(tasks, (t) => t.day);
+      let groupedTasks = [];
+      for (let task in tasks) {
+        groupedTasks.push({
+          tasks: tasks[task],
+          dayFormatted: tasks[task]?.[0].dayFormatted,
+          day: tasks[task]?.[0].day
+        })
+      }
+      return groupedTasks;
+    },
+
   },
   actions: {
     async getAll() {
