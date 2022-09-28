@@ -14,26 +14,31 @@ export const useTasksStore = defineStore({
   }),
   getters: {
     getTasks: (state) => {
-      let tasks: any = state.tasks.map((t) => {
-        let newTaskData = {
-          ...t,
-          createdAtTime: moment(t.createdAt).format("dd HH:mm"),
-          day: moment(t.createdAt).format("YYYY-DDD"),
-          dayFormatted: moment(t.createdAt).format("dddd Do MMM")
+      return (filter: string | null | undefined) => {
+        let tasks: any = state.tasks.map((t) => {
+          let newTaskData = {
+            ...t,
+            createdAtTime: moment(t.createdAt).format("dd HH:mm"),
+            day: moment(t.createdAt).format("YYYY-DDD"),
+            dayFormatted: moment(t.createdAt).format("dddd Do MMM")
+          }
+          return newTaskData;
+        });
+        tasks = orderBy(tasks, (t: any) => t.createdAt, "desc");
+        if (filter) {
+          tasks = tasks.filter((t: any) => !t.isPersonal)
         }
-        return newTaskData;
-      });
-      tasks = orderBy(tasks, (t) => t.createdAt, "desc");
-      tasks = groupBy(tasks, (t) => t.day);
-      let groupedTasks = [];
-      for (let task in tasks) {
-        groupedTasks.push({
-          tasks: tasks[task],
-          dayFormatted: tasks[task]?.[0].dayFormatted,
-          day: tasks[task]?.[0].day
-        })
+        tasks = groupBy(tasks, (t: any) => t.day);
+        let groupedTasks = [];
+        for (let task in tasks) {
+          groupedTasks.push({
+            tasks: tasks[task],
+            dayFormatted: tasks[task]?.[0].dayFormatted,
+            day: tasks[task]?.[0].day
+          })
+        }
+        return groupedTasks;
       }
-      return groupedTasks;
     },
 
   },

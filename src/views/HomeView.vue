@@ -10,10 +10,7 @@ const newTask = ref("")
 const isPersonal = ref(false);
 const showWork = ref(false)
 const allTasks = computed(() => {
-    if (showWork.value) {
-        return tasksStore.getTasks.filter((task) => !task.isPersonal)
-    }
-    return tasksStore.getTasks;
+    return tasksStore.getTasks(showWork.value);
 });
 const createNewTask = () => {
     console.log("create new taks");
