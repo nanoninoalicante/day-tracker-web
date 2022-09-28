@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import moment from "moment";
 import { orderBy } from 'lodash';
 import * as uuid from "uuid";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://day-tracker-api-dev.nanonino.workers.dev";
 interface State {
   tasks: any[]
 }
@@ -15,10 +15,11 @@ export const useTasksStore = defineStore({
   getters: {
     getTasks: (state) => {
       const tasks = state.tasks.map((t) => {
-        return {
+        let newTaskData = {
           ...t,
           createdAtTime: moment(t.createdAt).format("dd HH:mm")
         }
+        return newTaskData;
       });
       return orderBy(tasks, (t) => t.createdAt, "desc")
     }
@@ -33,7 +34,7 @@ export const useTasksStore = defineStore({
     },
     async add(newTaskData: any) {
       const id = uuid.v4();
-      const newTask = { id, name: newTaskData.name, createdAt: new Date().valueOf() }
+      const newTask = { id, name: newTaskData.name, createdAt: new Date().valueOf(), isPersonal: newTaskData.isPersonal }
       const response = await fetch(`${API_BASE_URL}`, { method: "POST", body: JSON.stringify(newTask) });
       this.tasks.push(newTask)
     },
